@@ -1,9 +1,15 @@
 package com.example.telasparcial
 
+import android.R
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.text.style.BackgroundColorSpan
 import android.util.Log
+import android.view.Surface
+import android.widget.Button
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,6 +31,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -46,7 +55,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.modifier.modifierLocalOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,11 +77,117 @@ class MainActivity : ComponentActivity() {
                         FavoriteContacts()
                         Spacer(modifier = Modifier.height(10.dp))
                         RecentContactsList()
-                        Spacer(modifier = Modifier.width(80.dp))
                         ContactsCards()
+
+                        BottomBar()
                     }
                 }
             }
+        }
+    }
+}
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview
+@Composable
+private fun BottomBar() {
+    Scaffold {
+        var context = LocalContext.current
+        Surface(modifier = Modifier.padding(bottom = 0.dp, top = 130.dp).
+                                    height(80.dp).
+                                    fillMaxWidth(),
+                color = Color(MaterialTheme.colorScheme.surfaceVariant.value)
+
+            ) {
+            Row {
+                Spacer(modifier = Modifier.width(55.dp))
+                BottomButtonEsquerda(context)
+                Spacer(modifier = Modifier.width(55.dp))
+                BottomButtonCentral(context)
+                Spacer(modifier = Modifier.width(55.dp))
+                BottomButtonDireita(context)
+
+            }
+        }
+    }
+}
+
+@Composable
+fun BottomButtonCentral(context: Context) {
+
+    Column {
+        Button(
+            modifier = Modifier
+                .width(70.dp)
+                .height(80.dp)
+                .padding(
+                    top = 15.dp,
+                    end = 5.dp,
+                    bottom = 10.dp
+                ),
+            shape = ButtonDefaults.filledTonalShape,
+            onClick = {
+                val intent = Intent(context, MainActivity::class.java)
+                context.startActivity(intent)
+            }) {
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "",
+                modifier = Modifier.size(70.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun BottomButtonEsquerda(context: Context) {
+
+    Column {
+        Button(
+            modifier = Modifier
+                .width(70.dp)
+                .height(80.dp)
+                .padding(
+                    top = 15.dp,
+                    end = 5.dp,
+                    bottom = 10.dp
+                ),
+            shape = ButtonDefaults.filledTonalShape,
+            onClick = {
+                val intent = Intent(context, MainActivity::class.java)
+                context.startActivity(intent)
+            }) {
+            Icon(
+                imageVector = Icons.Default.Call,
+                contentDescription = "",
+                modifier = Modifier.size(70.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun BottomButtonDireita(context : Context) {
+
+    Column {
+        Button(
+            modifier = Modifier
+                .width(70.dp)
+                .height(80.dp)
+                .padding(
+                    top = 15.dp,
+                    end = 5.dp,
+                    bottom = 10.dp
+                ),
+            shape = ButtonDefaults.filledTonalShape,
+            onClick = {
+                val intent = Intent(context, ListarContatos::class.java)
+                context.startActivity(intent)
+            }) {
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "",
+                modifier = Modifier.size(70.dp)
+            )
         }
     }
 }
@@ -82,10 +199,12 @@ private fun FavoriteContacts() {
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
         modifier = Modifier
-            .fillMaxWidth().
-            height(120.dp).
-            padding(start = 22.dp,
-                    end = 20.dp)
+            .fillMaxWidth()
+            .height(120.dp)
+            .padding(
+                start = 22.dp,
+                end = 20.dp
+            )
     ) {
         Column {
             Row { Text(
@@ -99,25 +218,33 @@ private fun FavoriteContacts() {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = "",
-                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                    modifier = Modifier
+                        .size(60.dp)
+                        .padding(start = 10.dp, bottom = 10.dp)
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = "",
-                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                    modifier = Modifier
+                        .size(60.dp)
+                        .padding(start = 10.dp, bottom = 10.dp)
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = "",
-                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                    modifier = Modifier
+                        .size(60.dp)
+                        .padding(start = 10.dp, bottom = 10.dp)
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = "",
-                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                    modifier = Modifier
+                        .size(60.dp)
+                        .padding(start = 10.dp, bottom = 10.dp)
                 )
                 Spacer(modifier = Modifier.width(20.dp))
 
@@ -135,17 +262,19 @@ private fun RecentContactsList() {
             containerColor = MaterialTheme.colorScheme.background,
         ),
         modifier = Modifier
-            .size(width = 375.dp, height = 300.dp)
+            .size(width = 400.dp, height = 300.dp)
     ){
         Column {
-            Row { Text(
+           Text(
                 text = "Recentes",
                 modifier = Modifier
-                    .padding(16.dp),
+                    .padding(start = 35.dp),
                 textAlign = TextAlign.Center,
-            )}
-            Row { RecentContactCard() }
-
+           )
+            RecentContactCard()
+            RecentContactCard()
+            RecentContactCard()
+            RecentContactCard()
         }
     }
 }
@@ -155,7 +284,7 @@ private fun RecentContactsList() {
 private fun ContactsCards() {
     Text(
         text = "A",
-        modifier = Modifier.padding(start = 22.dp, top = 20.dp)
+        modifier = Modifier.padding(start = 22.dp)
     )
     Spacer(modifier = Modifier.width(80.dp))
     Column {
@@ -191,6 +320,7 @@ private fun ContactsCards() {
 
                 }
             }
+            Spacer(modifier = Modifier.width(20.dp))
             Card(
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -209,71 +339,6 @@ private fun ContactsCards() {
                     )
                     Text(
                         text = "Contato2",
-                        modifier = Modifier
-                            .padding(16.dp),
-                        textAlign = TextAlign.Center,
-                    )
-                }
-                Row {
-                    Text(
-                        "(99)9999-9999",
-                        modifier = Modifier.padding(start = 15.dp)
-                    )
-
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(25.dp))
-        Row {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                ),
-                modifier = Modifier
-                    .size(width = 190.dp, height = 125.dp)
-                    .padding(start = 40.dp)
-            ) {
-                Row {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(40.dp)
-                            .padding(start = 5.dp, top = 5.dp)
-                    )
-                    Text(
-                        text = "Contato3",
-                        modifier = Modifier
-                            .padding(16.dp),
-                        textAlign = TextAlign.Center,
-                    )
-                }
-                Row {
-                    Text(
-                        "(99)9999-9999",
-                        modifier = Modifier.padding(start = 15.dp)
-                    )
-
-                }
-            }
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                ),
-                modifier = Modifier
-                    .size(width = 190.dp, height = 125.dp)
-                    .padding(start = 20.dp, end = 20.dp)
-            ) {
-                Row {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(40.dp)
-                            .padding(start = 5.dp, top = 5.dp)
-                    )
-                    Text(
-                        text = "Contato4",
                         modifier = Modifier
                             .padding(16.dp),
                         textAlign = TextAlign.Center,
@@ -364,11 +429,12 @@ fun SearchBar() {
 
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
 fun RecentContactCard() {
-    Scaffold {
-        Column(modifier = Modifier.padding(it)) {
+
+        Column(modifier = Modifier.padding()) {
 
             Surface(
                 modifier = Modifier
@@ -382,7 +448,7 @@ fun RecentContactCard() {
                     )
                     .border(
                         shape = CircleShape,
-                        border = BorderStroke(5.dp, color = Color.Gray),
+                        border = BorderStroke(5.dp, color = Color.LightGray),
 
                         )
             ) {
@@ -391,7 +457,7 @@ fun RecentContactCard() {
                     modifier = Modifier
                         .width(300.dp)
                         .height(5.dp)
-                        .background(shape = CircleShape, color = Color.Gray)
+                        .background(shape = CircleShape, color = Color.LightGray)
                         .padding(start = 5.dp),
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -413,5 +479,5 @@ fun RecentContactCard() {
                 }
             }
         }
-    }
+
 }
