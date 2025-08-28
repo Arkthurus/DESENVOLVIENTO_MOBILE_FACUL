@@ -1,8 +1,10 @@
 package com.example.telasparcial
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.text.style.BackgroundColorSpan
 import android.util.Log
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,9 +28,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -40,6 +46,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalOf
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.telasparcial.ui.theme.TelasParcialTheme
@@ -50,12 +59,232 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TelasParcialTheme {
-                Column {
-                    SearchBar()
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Surface() {
-
+                Scaffold {
+                    Column(modifier = Modifier.padding(it)) {
+                        SearchBar()
+                        Spacer(modifier = Modifier.height(5.dp))
+                        FavoriteContacts()
+                        Spacer(modifier = Modifier.height(10.dp))
+                        RecentContactsList()
+                        Spacer(modifier = Modifier.width(80.dp))
+                        ContactsCards()
                     }
+                }
+            }
+        }
+    }
+}
+@Preview
+@Composable
+private fun FavoriteContacts() {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
+        modifier = Modifier
+            .fillMaxWidth().
+            height(120.dp).
+            padding(start = 22.dp,
+                    end = 20.dp)
+    ) {
+        Column {
+            Row { Text(
+                text = "Favoritos",
+                modifier = Modifier
+                    .padding(16.dp),
+                textAlign = TextAlign.Center,
+            )}
+            Row {
+                Spacer(modifier = Modifier.width(15.dp))
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "",
+                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "",
+                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "",
+                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "",
+                    modifier = Modifier.size(60.dp).padding(start = 10.dp, bottom = 10.dp)
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+
+
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun RecentContactsList() {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.background,
+        ),
+        modifier = Modifier
+            .size(width = 375.dp, height = 300.dp)
+    ){
+        Column {
+            Row { Text(
+                text = "Recentes",
+                modifier = Modifier
+                    .padding(16.dp),
+                textAlign = TextAlign.Center,
+            )}
+            Row { RecentContactCard() }
+
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun ContactsCards() {
+    Text(
+        text = "A",
+        modifier = Modifier.padding(start = 22.dp, top = 20.dp)
+    )
+    Spacer(modifier = Modifier.width(80.dp))
+    Column {
+        Row {
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                ),
+                modifier = Modifier
+                    .size(width = 190.dp, height = 125.dp)
+                    .padding(start = 40.dp)
+            ) {
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(start = 5.dp, top = 5.dp)
+                    )
+                    Text(
+                        text = "Contato1",
+                        modifier = Modifier
+                            .padding(16.dp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Row {
+                    Text(
+                        "(99)9999-9999",
+                        modifier = Modifier.padding(start = 15.dp)
+                    )
+
+                }
+            }
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                ),
+                modifier = Modifier
+                    .size(width = 190.dp, height = 125.dp)
+                    .padding(start = 20.dp, end = 20.dp)
+            ) {
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(start = 5.dp, top = 5.dp)
+                    )
+                    Text(
+                        text = "Contato2",
+                        modifier = Modifier
+                            .padding(16.dp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Row {
+                    Text(
+                        "(99)9999-9999",
+                        modifier = Modifier.padding(start = 15.dp)
+                    )
+
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+        Row {
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                ),
+                modifier = Modifier
+                    .size(width = 190.dp, height = 125.dp)
+                    .padding(start = 40.dp)
+            ) {
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(start = 5.dp, top = 5.dp)
+                    )
+                    Text(
+                        text = "Contato3",
+                        modifier = Modifier
+                            .padding(16.dp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Row {
+                    Text(
+                        "(99)9999-9999",
+                        modifier = Modifier.padding(start = 15.dp)
+                    )
+
+                }
+            }
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                ),
+                modifier = Modifier
+                    .size(width = 190.dp, height = 125.dp)
+                    .padding(start = 20.dp, end = 20.dp)
+            ) {
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(start = 5.dp, top = 5.dp)
+                    )
+                    Text(
+                        text = "Contato4",
+                        modifier = Modifier
+                            .padding(16.dp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Row {
+                    Text(
+                        "(99)9999-9999",
+                        modifier = Modifier.padding(start = 15.dp)
+                    )
+
                 }
             }
         }
@@ -135,34 +364,35 @@ fun SearchBar() {
 
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun RecentContactCard() {
     Scaffold {
         Column(modifier = Modifier.padding(it)) {
+
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(110.dp)
+                    .height(60.dp)
                     .padding(
-                        top = 10.dp,
-                        bottom = 10.dp,
-                        start = 10.dp,
-                        end = 10.dp
+                        top = 5.dp,
+                        bottom = 5.dp,
+                        start = 22.dp
+
                     )
                     .border(
                         shape = CircleShape,
-                        border = BorderStroke(10.dp, color = Color.LightGray),
+                        border = BorderStroke(5.dp, color = Color.Gray),
 
                         )
             ) {
                 Column(
                     horizontalAlignment = Alignment.Start,
                     modifier = Modifier
-                        .width(200.dp)
+                        .width(300.dp)
                         .height(5.dp)
-                        .background(shape = CircleShape, color = Color.LightGray)
-                        .padding(start = 10.dp),
+                        .background(shape = CircleShape, color = Color.Gray)
+                        .padding(start = 5.dp),
                     verticalArrangement = Arrangement.Center
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -170,14 +400,14 @@ fun RecentContactCard() {
                         Icon(
                             imageVector = Icons.Default.AccountCircle,
                             contentDescription = "",
-                            modifier = Modifier.size(60.dp)
+                            modifier = Modifier.size(30.dp)
 
                         )
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(5.dp))
                         Text(
                             text = "NomeContato",
-                            modifier = Modifier.padding(bottom = 30.dp, start = 30.dp, top = 20.dp),
-                            style = MaterialTheme.typography.titleLarge
+                            modifier = Modifier.padding(bottom = 15.dp, start = 15.dp, top = 10.dp),
+                            style = MaterialTheme.typography.titleMedium
                         )
                     }
                 }
