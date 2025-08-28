@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Aula33"
+rootProject.name = "TelasParcial"
 include(":app")
