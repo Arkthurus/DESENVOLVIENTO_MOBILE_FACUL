@@ -50,7 +50,7 @@ class ListarContatos : ComponentActivity() {
                     Column {
                         ListarContatosTela(modifier = Modifier.padding(it))
 
-                        BottomBar(context)
+                        BottomBar2(context)
                     }
                 }
 
@@ -60,7 +60,7 @@ class ListarContatos : ComponentActivity() {
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-private fun BottomBar(context : Context) {
+private fun BottomBar2(context : Context) {
     Scaffold {
         Surface(modifier = Modifier.padding(bottom = 0.dp, top = 5.dp).
         height(80.dp).

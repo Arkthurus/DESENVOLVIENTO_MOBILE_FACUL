@@ -18,6 +18,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -71,6 +72,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TelasParcialTheme {
                 Scaffold {
+                    var context = LocalContext.current
                     Column(modifier = Modifier.padding(it)) {
                         SearchBar()
                         Spacer(modifier = Modifier.height(5.dp))
@@ -78,38 +80,45 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier = Modifier.height(10.dp))
                         RecentContactsList()
                         ContactsCards()
-
-                        BottomBar()
+                        BottomBar(context)
                     }
                 }
             }
         }
     }
 }
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
+
 @Composable
-private fun BottomBar() {
-    Scaffold {
-        var context = LocalContext.current
-        Surface(modifier = Modifier.padding(bottom = 0.dp, top = 130.dp).
-                                    height(80.dp).
-                                    fillMaxWidth(),
-                color = Color(MaterialTheme.colorScheme.surfaceVariant.value)
+fun BottomBar(context: Context) {
 
+    Scaffold(
+        bottomBar = {
+            Surface(
+                modifier = Modifier
+                    .height(80.dp)
+                    .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.surfaceVariant
             ) {
-            Row {
-                Spacer(modifier = Modifier.width(55.dp))
-                BottomButtonEsquerda(context)
-                Spacer(modifier = Modifier.width(55.dp))
-                BottomButtonCentral(context)
-                Spacer(modifier = Modifier.width(55.dp))
-                BottomButtonDireita(context)
-
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    BottomButtonEsquerda(context)
+                    BottomButtonCentral(context)
+                    BottomButtonDireita(context)
+                }
+            }
+        },
+        content = { innerPadding ->
+            // Aqui vai o conteúdo principal da tela
+            // Você pode usar innerPadding para evitar sobreposição
+            Box(modifier = Modifier.padding(innerPadding)) {
+                // Conteúdo da tela
             }
         }
-    }
+    )
 }
+
 
 @Composable
 fun BottomButtonCentral(context: Context) {
